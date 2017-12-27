@@ -1,4 +1,3 @@
-#include "script_component.hpp"
 /**
  * Copyright (c) 2017 SimZor, SimZor Studios
  * All Rights Reserved
@@ -18,9 +17,9 @@ scriptName "GW_client_fnc_dictCreateDict: main";
 scopeName "main";
 
 params [
-    ["_namespace", missionNamespace, [missionNamespace]],
+    ["_namespace", missionNamespace, [missionNamespace, objNull]],
     ["_dictName", "", [""]],
-    ["_initialDict", [], [[]],
+    ["_initialDict", [], [[]]],
     ["_broadcast", false, [true]]
 ];
 
