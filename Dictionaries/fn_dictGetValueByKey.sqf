@@ -1,4 +1,3 @@
-#include "script_component.hpp"
 /**
  * Copyright (c) 2017 SimZor, SimZor Studios
  * All Rights Reserved
@@ -6,14 +5,17 @@
  * Filename: fn_dictGetValueByKey.sqf
  *
  * Parameter(s):
- *     0: NAMESPACE - Namespace dict is stored in§
- *     1: STRING    - Name of dict
- *     2: STRING    - Key of value to get
+ *     0 (REQUIRED): NAMESPACE - Namespace dict is stored in§
+ *     1 (REQUIRED): STRING    - Name of dict
+ *     2 (REQUIRED): STRING    - Key of value to get
  *
  * Returns:
- *     ANYTHING - Value of key
+ *     ANYTHING - Value of key (if nothing found - nil)
  *
  * Throws:
+ *     Exception when the dictname is an empty string
+ *     Exception when the key is empty string
+ *     A dict with given name doesn't exist
  *
  * Description:
  *     Gets value of a dict key element
@@ -21,7 +23,11 @@
 scriptName "GW_client_fnc_dictGetValueByKey: main";
 scopeName "main";
 
-params [["_namespace", missionNamespace, [missionNamespace]], ["_dictName", "", [""]], ["_key", "", [""]]];
+params [
+    ["_namespace", missionNamespace, [missionNamespace, objNull]],
+    ["_dictName", "", [""]],
+    ["_key", "", [""]]
+];
 
 // Error checks
 if (_dictName isEqualTo "") throw "Dictname is empty string";
@@ -39,6 +45,8 @@ if (isNil "_dict") throw "No dict with that name exists";
     if (_elementKey == _key) exitWith {
         _elementValue breakOut "main";
     };
+
+    true
 } count _dict;
 
 // Return nothing
